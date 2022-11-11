@@ -1,0 +1,669 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Lane Segmentation Leaderboard</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a0d47b0e-0df2-4436-beeb-f1f1281d0dd2" class="page sans"><header><h1 class="page-title">Lane Segmentation Leaderboard</h1></header><div class="page-body"><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Rank</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M0.637695 13.1914C1.0957 13.1914 1.32812 13 1.47852 12.5215L2.24414 10.3887H6.14746L6.90625 12.5215C7.05664 13 7.2959 13.1914 7.74707 13.1914C8.22559 13.1914 8.5332 12.9043 8.5332 12.4531C8.5332 12.2891 8.50586 12.1523 8.44434 11.9678L5.41602 3.79199C5.2041 3.21777 4.82129 2.9375 4.19922 2.9375C3.60449 2.9375 3.21484 3.21777 3.0166 3.78516L-0.0322266 12.002C-0.09375 12.1797 -0.121094 12.3232 -0.121094 12.4668C-0.121094 12.918 0.166016 13.1914 0.637695 13.1914ZM2.63379 9.12402L4.17871 4.68066H4.21973L5.76465 9.12402H2.63379ZM12.2793 13.2324C13.3115 13.2324 14.2891 12.6787 14.7129 11.8037H14.7402V12.5762C14.7471 12.9863 15.0273 13.2393 15.4238 13.2393C15.834 13.2393 16.1143 12.9795 16.1143 12.5215V8.00977C16.1143 6.49902 14.9658 5.52148 13.1543 5.52148C11.7666 5.52148 10.6592 6.08887 10.2695 6.99121C10.1943 7.15527 10.1533 7.3125 10.1533 7.46289C10.1533 7.81152 10.4062 8.04395 10.7686 8.04395C11.0215 8.04395 11.2129 7.94824 11.3496 7.73633C11.7529 6.99121 12.2861 6.65625 13.1064 6.65625C14.0977 6.65625 14.6992 7.20996 14.6992 8.1123V8.67285L12.5664 8.7959C10.7686 8.8916 9.77734 9.69824 9.77734 11.0107C9.77734 12.3369 10.8096 13.2324 12.2793 13.2324ZM12.6621 12.1387C11.8008 12.1387 11.2129 11.667 11.2129 10.9561C11.2129 10.2725 11.7598 9.82129 12.7578 9.75977L14.6992 9.62988V10.3203C14.6992 11.3457 13.7969 12.1387 12.6621 12.1387Z"></path></svg></span>Method</th><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesNumber"><path d="M2.4834 10.9902H4.33594L3.75488 13.8887C3.74121 13.9639 3.72754 14.0664 3.72754 14.1416C3.72754 14.5381 3.99414 14.7637 4.39746 14.7637C4.81445 14.7637 5.09473 14.5449 5.18359 14.1143L5.80566 10.9902H8.79297L8.21191 13.8887C8.19824 13.9639 8.18457 14.0664 8.18457 14.1416C8.18457 14.5381 8.45117 14.7637 8.85449 14.7637C9.27148 14.7637 9.55176 14.5449 9.63379 14.1143L10.2627 10.9902H12.4502C12.9287 10.9902 13.2432 10.6758 13.2432 10.2109C13.2432 9.8418 12.9902 9.56836 12.6006 9.56836H10.5498L11.2129 6.28711H13.3662C13.8379 6.28711 14.1523 5.96582 14.1523 5.50098C14.1523 5.13184 13.9062 4.8584 13.5098 4.8584H11.5L12.0195 2.27441C12.0264 2.21973 12.0469 2.11035 12.0469 2.01465C12.0469 1.625 11.7666 1.39258 11.3633 1.39258C10.9053 1.39258 10.6797 1.63867 10.5977 2.05566L10.0303 4.8584H7.04297L7.5625 2.27441C7.57617 2.21973 7.58984 2.11035 7.58984 2.01465C7.58984 1.625 7.30957 1.39258 6.91309 1.39258C6.44824 1.39258 6.21582 1.63867 6.13379 2.05566L5.57324 4.8584H3.54297C3.06445 4.8584 2.75 5.18652 2.75 5.65137C2.75 6.03418 3.00293 6.28711 3.39258 6.28711H5.28613L4.62305 9.56836H2.63379C2.15527 9.56836 1.84082 9.89648 1.84082 10.3613C1.84082 10.7373 2.09375 10.9902 2.4834 10.9902ZM6.09277 9.56836L6.75586 6.28711H9.74316L9.08008 9.56836H6.09277Z"></path></svg></span>Mean Iou</th></tr></thead><tbody><tr id="3baaac60-17e6-40b0-906a-4d8324172bb3"><td class="cell-}yA&lt;">1</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/Simple_train%203baaac6017e640b0906a4d8324172bb3.html">Simple_train</a></td><td class="cell-ReWV">0.4663</td></tr><tr id="65d95b6e-f941-4c34-a2b4-45054c09d959"><td class="cell-}yA&lt;">2</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/Simple_test%2065d95b6ef9414c34a2b445054c09d959.html">Simple_test</a></td><td class="cell-ReWV">0.4663</td></tr><tr id="63710eb3-4ee8-4640-abbf-cf146986ed05"><td class="cell-}yA&lt;">3</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/Codes-for-IntRA-KD%2063710eb34ee84640abbfcf146986ed05.html">Codes-for-IntRA-KD</a></td><td class="cell-ReWV">0.4662</td></tr><tr id="4877cfde-bb2b-4142-9ded-0544149956b9"><td class="cell-}yA&lt;">4</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/Simple_baseline%204877cfdebb2b41429ded0544149956b9.html">Simple_baseline</a></td><td class="cell-ReWV">0.4652</td></tr><tr id="6908c9ab-9d7f-4b9d-bf36-165529cfc03d"><td class="cell-}yA&lt;">5</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/chary_noflip%206908c9ab9d7f4b9dbf36165529cfc03d.html">chary_noflip</a></td><td class="cell-ReWV">0.457</td></tr><tr id="a0c17cbf-f06b-4ddd-b950-9de241491c4e"><td class="cell-}yA&lt;">6</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/chary_flip_1080%20a0c17cbff06b4dddb9509de241491c4e.html">chary_flip_1080</a></td><td class="cell-ReWV">0.4569</td></tr><tr id="bda22415-be57-429d-a22a-eb57bfcd4c32"><td class="cell-}yA&lt;">7</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test%20bda22415be57429da22aeb57bfcd4c32.html">test</a></td><td class="cell-ReWV">0.4549</td></tr><tr id="ecc146f9-aadd-49b7-83cf-eb1f19189cbe"><td class="cell-}yA&lt;">8</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test1224%20ecc146f9aadd49b783cfeb1f19189cbe.html">test1224</a></td><td class="cell-ReWV">0.4522</td></tr><tr id="74c24eaf-decd-48c7-81fd-1ec4f56219ff"><td class="cell-}yA&lt;">9</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp10_test_ms%2074c24eafdecd48c781fd1ec4f56219ff.html">exp10_test_ms</a></td><td class="cell-ReWV">0.4515</td></tr><tr id="3a032958-094d-475e-8330-d1821714ad3e"><td class="cell-}yA&lt;">10</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/chary_noflip_1080%203a032958094d475e8330d1821714ad3e.html">chary_noflip_1080</a></td><td class="cell-ReWV">0.451</td></tr><tr id="35823f92-f535-4dff-a31d-b1d5c04d5f2d"><td class="cell-}yA&lt;">11</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test1224_2%2035823f92f5354dffa31db1d5c04d5f2d.html">test1224_2</a></td><td class="cell-ReWV">0.4502</td></tr><tr id="8c987da1-3908-43a4-883a-3ff01d6442ee"><td class="cell-}yA&lt;">12</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp09_test_flip_ms%208c987da1390843a4883a3ff01d6442ee.html">exp09_test_flip_ms</a></td><td class="cell-ReWV">0.4474</td></tr><tr id="466db214-88b7-41be-834c-cffd6121147e"><td class="cell-}yA&lt;">13</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/ERFNet%20466db21488b741be834ccffd6121147e.html">ERFNet</a></td><td class="cell-ReWV">0.4469</td></tr><tr id="5eb0e0d5-5f6a-46c7-8724-fd6704729f49"><td class="cell-}yA&lt;">14</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/Se-ERFNet%205eb0e0d55f6a46c78724fd6704729f49.html">Se-ERFNet</a></td><td class="cell-ReWV">0.4469</td></tr><tr id="769bdbbd-249f-42f9-aaa6-74a6b3b1b6c8"><td class="cell-}yA&lt;">15</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test_1228_2%20769bdbbd249f42f9aaa674a6b3b1b6c8.html">test_1228_2</a></td><td class="cell-ReWV">0.4422</td></tr><tr id="c2943faa-a61d-4cd7-9f5d-8e5b334eda14"><td class="cell-}yA&lt;">16</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/Att-ERFNet%20c2943faaa61d4cd79f5d8e5b334eda14.html">Att-ERFNet</a></td><td class="cell-ReWV">0.4417</td></tr><tr id="b3f138d2-a9d0-4b44-9956-411024a3fa82"><td class="cell-}yA&lt;">17</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/chary_v10%20b3f138d2a9d04b449956411024a3fa82.html">chary_v10</a></td><td class="cell-ReWV">0.4367</td></tr><tr id="4e2a944a-8e53-4c94-a374-275c17bc7702"><td class="cell-}yA&lt;">18</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/cnn%204e2a944a8e534c94a374275c17bc7702.html">cnn</a></td><td class="cell-ReWV">0.4367</td></tr><tr id="e58a69f1-aacb-47b9-8ec6-5f4867f1f25e"><td class="cell-}yA&lt;">19</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/AP-ERFNet%20e58a69f1aacb47b98ec65f4867f1f25e.html">AP-ERFNet</a></td><td class="cell-ReWV">0.4357</td></tr><tr id="1c712f59-6703-4291-959d-ebd9a6239ee5"><td class="cell-}yA&lt;">20</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/Attd-ERFNet%201c712f5967034291959debd9a6239ee5.html">Attd-ERFNet</a></td><td class="cell-ReWV">0.4357</td></tr><tr id="98a31269-0d18-4de7-94a3-608849c4c98d"><td class="cell-}yA&lt;">21</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test%20model%2098a312690d184de794a3608849c4c98d.html">test model</a></td><td class="cell-ReWV">0.4351</td></tr><tr id="bec4289b-de6d-4737-9fb1-bf9c27d6fcd0"><td class="cell-}yA&lt;">22</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/Paddle_Seg%20bec4289bde6d47379fb1bf9c27d6fcd0.html">Paddle_Seg</a></td><td class="cell-ReWV">0.4315</td></tr><tr id="3df28fa5-dc7b-49de-a83f-cb336d99589a"><td class="cell-}yA&lt;">23</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304_ms_exp04%203df28fa5dc7b49dea83fcb336d99589a.html">test020304_ms_exp04</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="5751e000-abf8-412a-9f50-e33631229f5c"><td class="cell-}yA&lt;">24</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test0203_ms_exp05%205751e000abf8412a9f50e33631229f5c.html">test0203_ms_exp05</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="2d26d057-354b-48a9-a313-11b0d1d21cd1"><td class="cell-}yA&lt;">25</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304_ms_exp06%202d26d057354b48a9a31311b0d1d21cd1.html">test020304_ms_exp06</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="0a941370-d5b1-4c23-8495-78b6de5ecc62"><td class="cell-}yA&lt;">26</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test_ms_exp05%200a941370d5b14c23849578b6de5ecc62.html">test_ms_exp05</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="9ae65435-1433-4a5f-966d-6bfbc10ef80e"><td class="cell-}yA&lt;">27</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test_ms_exp06%209ae6543514334a5f966d6bfbc10ef80e.html">test_ms_exp06</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="ee94cd3d-cfde-4b93-b17a-b2fcfba0db0e"><td class="cell-}yA&lt;">28</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test_ms_exp07%20ee94cd3dcfde4b93b17ab2fcfba0db0e.html">test_ms_exp07</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="9a084cf9-3573-4377-95de-73b9be86e05b"><td class="cell-}yA&lt;">29</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test_ms_exp08%209a084cf93573437795de73b9be86e05b.html">test_ms_exp08</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="6eef6975-0170-4a6c-8b89-73d016df2709"><td class="cell-}yA&lt;">30</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp05_test_ms%206eef697501704a6c8b8973d016df2709.html">exp05_test_ms</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="790bd7e7-45bf-48d9-9aea-93f021bd7632"><td class="cell-}yA&lt;">31</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp06_test_ms%20790bd7e745bf48d99aea93f021bd7632.html">exp06_test_ms</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="eb3b45c4-ae3c-4805-80e0-129c5d14e5ec"><td class="cell-}yA&lt;">32</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp07_test_ms%20eb3b45c4ae3c480580e0129c5d14e5ec.html">exp07_test_ms</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="5ee5bb7e-44e8-491d-add9-bbe412e3ee1e"><td class="cell-}yA&lt;">33</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp08_test_ms%205ee5bb7e44e8491dadd9bbe412e3ee1e.html">exp08_test_ms</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="7ea71bac-3390-4150-9c76-a522676fbe29"><td class="cell-}yA&lt;">34</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test0203_exp05_ms%207ea71bac339041509c76a522676fbe29.html">test0203_exp05_ms</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="25647deb-03c6-45e5-9aad-5f26809a756a"><td class="cell-}yA&lt;">35</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test0203_exp07_ms%2025647deb03c645e59aad5f26809a756a.html">test0203_exp07_ms</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="e8d68841-77be-4aef-a723-8c47845d0c59"><td class="cell-}yA&lt;">36</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304_exp06_ms%20e8d6884177be4aefa7238c47845d0c59.html">test020304_exp06_ms</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="17d6627d-daf7-4625-9a4d-ec555f1151e8"><td class="cell-}yA&lt;">37</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304_exp08_ms%2017d6627ddaf746259a4dec555f1151e8.html">test020304_exp08_ms</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="fd6d6f2e-03ad-4269-9c29-fcfd3d2dba59"><td class="cell-}yA&lt;">38</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp12_test_ms%20fd6d6f2e03ad42699c29fcfd3d2dba59.html">exp12_test_ms</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="d8be6605-6ee4-4bd9-b226-407397afd609"><td class="cell-}yA&lt;">39</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp12_TEST_ms%20d8be66056ee44bd9b226407397afd609.html">exp12_TEST_ms</a></td><td class="cell-ReWV">0.4286</td></tr><tr id="0186e118-df72-48cb-b2fa-15fa8706f188"><td class="cell-}yA&lt;">40</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304_ms_exp02%200186e118df7248cbb2fa15fa8706f188.html">test020304_ms_exp02</a></td><td class="cell-ReWV">0.4262</td></tr><tr id="2efb33d0-11ae-4333-84f7-49ed9202926e"><td class="cell-}yA&lt;">41</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test_1228%202efb33d011ae433384f749ed9202926e.html">test_1228</a></td><td class="cell-ReWV">0.4226</td></tr><tr id="61dfee8c-44d8-433c-8cda-b07d8a88e78f"><td class="cell-}yA&lt;">42</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp10_test%2061dfee8c44d8433c8cdab07d8a88e78f.html">exp10_test</a></td><td class="cell-ReWV">0.4224</td></tr><tr id="5fc7b9b4-1df9-4b33-9946-c9f5f52dca7b"><td class="cell-}yA&lt;">43</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304_ms_flip%205fc7b9b41df94b339946c9f5f52dca7b.html">test020304_ms_flip</a></td><td class="cell-ReWV">0.4195</td></tr><tr id="1b4ebd11-3be9-440c-8f7a-77ce68e8899e"><td class="cell-}yA&lt;">44</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/deeplabv3p_lovasz_ce_ms%201b4ebd113be9440c8f7a77ce68e8899e.html">deeplabv3p_lovasz_ce_ms</a></td><td class="cell-ReWV">0.4187</td></tr><tr id="35ce6693-bf02-409b-ba7e-73f8c3c23d30"><td class="cell-}yA&lt;">45</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304_ms%2035ce6693bf02409bba7e73f8c3c23d30.html">test020304_ms</a></td><td class="cell-ReWV">0.4181</td></tr><tr id="89f88b1c-8b98-4c3e-9b89-48821ffc8648"><td class="cell-}yA&lt;">46</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304_exp02%2089f88b1c8b984c3e9b8948821ffc8648.html">test020304_exp02</a></td><td class="cell-ReWV">0.4129</td></tr><tr id="ca931b41-9f4b-4c50-a170-413913ee765a"><td class="cell-}yA&lt;">47</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test322%20ca931b419f4b4c50a170413913ee765a.html">test322</a></td><td class="cell-ReWV">0.4117</td></tr><tr id="1461296f-8139-46f8-94c4-01983524f92e"><td class="cell-}yA&lt;">48</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp14_test_ms%201461296f813946f894c401983524f92e.html">exp14_test_ms</a></td><td class="cell-ReWV">0.4101</td></tr><tr id="866e8da8-bcd2-49d2-a06d-9a2b5981eaf2"><td class="cell-}yA&lt;">49</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304_ori_ms_exp02%20866e8da8bcd249d2a06d9a2b5981eaf2.html">test020304_ori_ms_exp02</a></td><td class="cell-ReWV">0.4049</td></tr><tr id="95451abc-7496-4dc1-b0f8-a98a064f4ccf"><td class="cell-}yA&lt;">50</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304%2095451abc74964dc1b0f8a98a064f4ccf.html">test020304</a></td><td class="cell-ReWV">0.4021</td></tr><tr id="f2c0b53f-371a-487c-ad0b-1ae663f97124"><td class="cell-}yA&lt;">51</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304_exp04%20f2c0b53f371a487cad0b1ae663f97124.html">test020304_exp04</a></td><td class="cell-ReWV">0.4006</td></tr><tr id="d7e6465a-6e7f-48ac-b60e-24f6308295cb"><td class="cell-}yA&lt;">52</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test0203_exp05%20d7e6465a6e7f48acb60e24f6308295cb.html">test0203_exp05</a></td><td class="cell-ReWV">0.4006</td></tr><tr id="a1d7228c-93e3-436c-8ed0-7e73f06a9001"><td class="cell-}yA&lt;">53</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304_exp06%20a1d7228c93e3436c8ed07e73f06a9001.html">test020304_exp06</a></td><td class="cell-ReWV">0.4006</td></tr><tr id="6def4aba-537b-4181-9dc2-48e1d42b0458"><td class="cell-}yA&lt;">54</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test_exp06%206def4aba537b41819dc248e1d42b0458.html">test_exp06</a></td><td class="cell-ReWV">0.4006</td></tr><tr id="3666c36e-416d-444b-8593-de96c19f0896"><td class="cell-}yA&lt;">55</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test_exp07%203666c36e416d444b8593de96c19f0896.html">test_exp07</a></td><td class="cell-ReWV">0.4006</td></tr><tr id="82ae5f78-6767-44f7-8c2c-2c9a8700c4de"><td class="cell-}yA&lt;">56</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test_exp08%2082ae5f78676744f78c2c2c9a8700c4de.html">test_exp08</a></td><td class="cell-ReWV">0.4006</td></tr><tr id="0c095e53-f65b-423e-9fd2-b8d4ec99fe3b"><td class="cell-}yA&lt;">57</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp05_test%200c095e53f65b423e9fd2b8d4ec99fe3b.html">exp05_test</a></td><td class="cell-ReWV">0.4006</td></tr><tr id="0464e7c4-9cb7-4c87-bd54-61ebaf4e5e51"><td class="cell-}yA&lt;">58</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp06_test%200464e7c49cb74c87bd5461ebaf4e5e51.html">exp06_test</a></td><td class="cell-ReWV">0.4006</td></tr><tr id="a8de2fcd-4b1b-4c28-9c8b-1dfde9afae1a"><td class="cell-}yA&lt;">59</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp07_test%20a8de2fcd4b1b4c289c8b1dfde9afae1a.html">exp07_test</a></td><td class="cell-ReWV">0.4006</td></tr><tr id="9012691d-f1c0-4b3c-8877-76391a6e85f5"><td class="cell-}yA&lt;">60</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp08_test%209012691df1c04b3c887776391a6e85f5.html">exp08_test</a></td><td class="cell-ReWV">0.4006</td></tr><tr id="5a36bdca-5ac9-4a32-9b83-a5c6379098c4"><td class="cell-}yA&lt;">61</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test0203_exp07%205a36bdca5ac94a329b83a5c6379098c4.html">test0203_exp07</a></td><td class="cell-ReWV">0.4006</td></tr><tr id="e03f8235-430b-495b-a086-0df6ec3f9966"><td class="cell-}yA&lt;">62</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304_exp08%20e03f8235430b495ba0860df6ec3f9966.html">test020304_exp08</a></td><td class="cell-ReWV">0.4006</td></tr><tr id="967f98eb-8acb-4748-9d8e-a566049d8ec2"><td class="cell-}yA&lt;">63</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/resent38_downsample_9x_upsampling_nearest%20967f98eb8acb47489d8ea566049d8ec2.html">resent38_downsample_9x_upsampling_nearest</a></td><td class="cell-ReWV">0.4001</td></tr><tr id="ba4fd84c-dca3-4954-977c-24548d2eba0a"><td class="cell-}yA&lt;">64</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/Resnet38_Baseline%20ba4fd84cdca34954977c24548d2eba0a.html">Resnet38_Baseline</a></td><td class="cell-ReWV">0.4001</td></tr><tr id="7eb368d1-c47b-4c3c-b868-7f4ca8d0da92"><td class="cell-}yA&lt;">65</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test111%207eb368d1c47b4c3cb8687f4ca8d0da92.html">test111</a></td><td class="cell-ReWV">0.3992</td></tr><tr id="46696373-9ec8-4c88-a682-cd717dec010a"><td class="cell-}yA&lt;">66</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/Xie%20Tao,%20Zhang%20Hongyu%20466963739ec84c88a682cd717dec010a.html">Xie Tao, Zhang Hongyu</a></td><td class="cell-ReWV">0.3985</td></tr><tr id="f997f209-0ede-4997-904d-cce68abacbe5"><td class="cell-}yA&lt;">67</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test329%20f997f2090ede4997904dcce68abacbe5.html">test329</a></td><td class="cell-ReWV">0.3981</td></tr><tr id="e141eb63-ba71-4a00-9cdd-f74771cbe169"><td class="cell-}yA&lt;">68</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp09_test_flip%20e141eb63ba714a009cddf74771cbe169.html">exp09_test_flip</a></td><td class="cell-ReWV">0.3969</td></tr><tr id="3522b964-67e4-4bdf-96d3-cf2e530ac719"><td class="cell-}yA&lt;">69</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp13_test_ms%203522b96467e44bdf96d3cf2e530ac719.html">exp13_test_ms</a></td><td class="cell-ReWV">0.3937</td></tr><tr id="7a623dfc-b8d2-463e-a94f-67c75e7ec710"><td class="cell-}yA&lt;">70</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp13_test%207a623dfcb8d2463ea94f67c75e7ec710.html">exp13_test</a></td><td class="cell-ReWV">0.3762</td></tr><tr id="227e18b2-30bc-40fa-98f0-80dced7001cd"><td class="cell-}yA&lt;">71</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/deeplabv3p_lovasz_ce%20227e18b230bc40fa98f080dced7001cd.html">deeplabv3p_lovasz_ce</a></td><td class="cell-ReWV">0.3755</td></tr><tr id="bba6002b-6a9a-4114-90fa-1beaea4e9ff7"><td class="cell-}yA&lt;">72</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp14_test%20bba6002b6a9a411490fa1beaea4e9ff7.html">exp14_test</a></td><td class="cell-ReWV">0.3748</td></tr><tr id="4abba4cf-e7a7-4c24-8a09-d044d67045d0"><td class="cell-}yA&lt;">73</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/deeplabv3p_ce_ms%204abba4cfe7a74c248a09d044d67045d0.html">deeplabv3p_ce_ms</a></td><td class="cell-ReWV">0.3697</td></tr><tr id="6d26b549-5b40-407d-9b93-ee43222369ab"><td class="cell-}yA&lt;">74</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp09_test_ms%206d26b5495b40407d9b93ee43222369ab.html">exp09_test_ms</a></td><td class="cell-ReWV">0.3697</td></tr><tr id="2217ecac-95ca-49c6-8b34-d92a2fbf461e"><td class="cell-}yA&lt;">75</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp11_test_ms%202217ecac95ca49c68b34d92a2fbf461e.html">exp11_test_ms</a></td><td class="cell-ReWV">0.3697</td></tr><tr id="456bd4db-ba19-46ef-8025-f5c95ce7065c"><td class="cell-}yA&lt;">76</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test121%20456bd4dbba1946ef8025f5c95ce7065c.html">test121</a></td><td class="cell-ReWV">0.3676</td></tr><tr id="ac9fc4a4-e5e6-4b11-8f4b-d92a4d82c115"><td class="cell-}yA&lt;">77</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/lovasz_hrnet_ocr_ms%20ac9fc4a4e5e64b118f4bd92a4d82c115.html">lovasz_hrnet_ocr_ms</a></td><td class="cell-ReWV">0.367</td></tr><tr id="6d2d7a8d-0007-4e9a-9654-92ac05ab96f4"><td class="cell-}yA&lt;">78</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304_ms_flip_exp02%206d2d7a8d00074e9a965492ac05ab96f4.html">test020304_ms_flip_exp02</a></td><td class="cell-ReWV">0.3666</td></tr><tr id="904b14a0-e520-4a28-907f-97817c237924"><td class="cell-}yA&lt;">79</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/SML+CBTS%20904b14a0e5204a28907f97817c237924.html">SML+CBTS</a></td><td class="cell-ReWV">0.366</td></tr><tr id="8c02ffea-37f2-4a95-8a55-7a05231ab4e9"><td class="cell-}yA&lt;">80</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/modified%20ERFNet%20w480%20h160%208c02ffea37f24a958a557a05231ab4e9.html">modified ERFNet w480 h160</a></td><td class="cell-ReWV">0.363</td></tr><tr id="7d176592-b15d-40a2-b6bb-769b7bc19854"><td class="cell-}yA&lt;">81</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp12_test%207d176592b15d40a2b6bb769b7bc19854.html">exp12_test</a></td><td class="cell-ReWV">0.3626</td></tr><tr id="6b01c269-babb-49f0-b161-b89cecf3dbfe"><td class="cell-}yA&lt;">82</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp12_TEST%206b01c269babb49f0b161b89cecf3dbfe.html">exp12_TEST</a></td><td class="cell-ReWV">0.3626</td></tr><tr id="73825e0a-5420-48d7-8a2e-26d41d576672"><td class="cell-}yA&lt;">83</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/deeplabv3p_ce_ss%2073825e0a542048d78a2e26d41d576672.html">deeplabv3p_ce_ss</a></td><td class="cell-ReWV">0.3578</td></tr><tr id="32e758da-723d-4b7e-90f6-6ed957c0f179"><td class="cell-}yA&lt;">84</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/deeplabv3p_lovasz_ms%2032e758da723d4b7e90f66ed957c0f179.html">deeplabv3p_lovasz_ms</a></td><td class="cell-ReWV">0.3526</td></tr><tr id="4674468f-7d7d-489d-815f-7ce3a85c946b"><td class="cell-}yA&lt;">85</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test124%204674468f7d7d489d815f7ce3a85c946b.html">test124</a></td><td class="cell-ReWV">0.3525</td></tr><tr id="d1e53943-ea04-45e7-9910-4629542b107f"><td class="cell-}yA&lt;">86</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp09_test%20d1e53943ea0445e799104629542b107f.html">exp09_test</a></td><td class="cell-ReWV">0.3208</td></tr><tr id="ad5f277f-9783-48e4-8cd2-ebcb497ca602"><td class="cell-}yA&lt;">87</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/exp11_test%20ad5f277f978348e48cd2ebcb497ca602.html">exp11_test</a></td><td class="cell-ReWV">0.3208</td></tr><tr id="9d5dcfe5-5e6c-42bb-9779-bab93c97bc93"><td class="cell-}yA&lt;">88</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test03%209d5dcfe55e6c42bb9779bab93c97bc93.html">test03</a></td><td class="cell-ReWV">0.3201</td></tr><tr id="2846ba9c-44b5-40aa-ac5d-a2c6ffbb0871"><td class="cell-}yA&lt;">89</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test04%202846ba9c44b540aaac5da2c6ffbb0871.html">test04</a></td><td class="cell-ReWV">0.3192</td></tr><tr id="57a52b71-c079-4c15-86d6-1406cd652d80"><td class="cell-}yA&lt;">90</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/lovasz_hrnet_ocr%2057a52b71c0794c1586d61406cd652d80.html">lovasz_hrnet_ocr</a></td><td class="cell-ReWV">0.3144</td></tr><tr id="af95c7d4-f549-46c7-926e-5ea22f942148"><td class="cell-}yA&lt;">91</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test0203_ms%20af95c7d4f54946c7926e5ea22f942148.html">test0203_ms</a></td><td class="cell-ReWV">0.3087</td></tr><tr id="7cf958fc-3fbd-48e7-aa51-4a39459e3fa7"><td class="cell-}yA&lt;">92</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test0203_ms_exp03%207cf958fc3fbd48e7aa514a39459e3fa7.html">test0203_ms_exp03</a></td><td class="cell-ReWV">0.3077</td></tr><tr id="5af46bd0-7dc8-4da7-8db6-4a5dd9dfb15b"><td class="cell-}yA&lt;">93</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test0203_ms_noflip%205af46bd07dc84da78db64a5dd9dfb15b.html">test0203_ms_noflip</a></td><td class="cell-ReWV">0.3076</td></tr><tr id="92cc9d6e-4f21-4ca9-b9d5-f99ed54e048c"><td class="cell-}yA&lt;">94</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/deeplabv3p_lovasz%2092cc9d6e4f214ca9b9d5f99ed54e048c.html">deeplabv3p_lovasz</a></td><td class="cell-ReWV">0.3036</td></tr><tr id="5f6ff208-543f-4e5a-bff0-6ba3402555e5"><td class="cell-}yA&lt;">95</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test0203%205f6ff208543f4e5abff06ba3402555e5.html">test0203</a></td><td class="cell-ReWV">0.2976</td></tr><tr id="573b9c0f-4d2d-4e34-9f93-628921104204"><td class="cell-}yA&lt;">96</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test0203_ms_exp02%20573b9c0f4d2d4e349f93628921104204.html">test0203_ms_exp02</a></td><td class="cell-ReWV">0.2926</td></tr><tr id="58221d0e-527e-4eed-b3e6-a3890360f14f"><td class="cell-}yA&lt;">97</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test0203_exp02%2058221d0e527e4eedb3e6a3890360f14f.html">test0203_exp02</a></td><td class="cell-ReWV">0.2909</td></tr><tr id="1023f490-bff8-4abf-b604-a76eb680940f"><td class="cell-}yA&lt;">98</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test0203_exp03%201023f490bff84abfb604a76eb680940f.html">test0203_exp03</a></td><td class="cell-ReWV">0.2697</td></tr><tr id="60e0de22-59a6-405d-bf99-0fbdd08850a7"><td class="cell-}yA&lt;">99</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test_exp05%2060e0de2259a6405dbf990fbdd08850a7.html">test_exp05</a></td><td class="cell-ReWV">0.2697</td></tr><tr id="93c59a57-4b19-4dc7-b2ed-d286b22ef7a9"><td class="cell-}yA&lt;">100</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/baseline%2093c59a574b194dc7b2edd286b22ef7a9.html">baseline</a></td><td class="cell-ReWV">0.2659</td></tr><tr id="d6f07ba0-4c49-4ab3-9c93-4379be12013a"><td class="cell-}yA&lt;">101</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/hrnet_ocr_multiscale%20d6f07ba04c494ab39c934379be12013a.html">hrnet_ocr_multiscale</a></td><td class="cell-ReWV">0.2639</td></tr><tr id="d9df53ed-4452-4ded-93c3-06554d2af97e"><td class="cell-}yA&lt;">102</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test020304_oriscale_exp02%20d9df53ed44524ded93c306554d2af97e.html">test020304_oriscale_exp02</a></td><td class="cell-ReWV">0.2594</td></tr><tr id="00c54c02-449d-431d-bb56-99c92a7618b8"><td class="cell-}yA&lt;">103</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test0203_ms_flip%2000c54c02449d431dbb5699c92a7618b8.html">test0203_ms_flip</a></td><td class="cell-ReWV">0.2501</td></tr><tr id="4617818c-2110-4d78-8b9c-2bfbd0c3d202"><td class="cell-}yA&lt;">104</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test331%204617818c21104d788b9c2bfbd0c3d202.html">test331</a></td><td class="cell-ReWV">0.2451</td></tr><tr id="3732ced8-bd86-4332-9529-5d8c5d40c7fc"><td class="cell-}yA&lt;">105</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/test267%203732ced8bd86433295295d8c5d40c7fc.html">test267</a></td><td class="cell-ReWV">0.2231</td></tr><tr id="d7555e26-d53b-438a-b936-80d2775299c5"><td class="cell-}yA&lt;">106</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/ITL_HO%20d7555e26d53b438ab93680d2775299c5.html">ITL_HO</a></td><td class="cell-ReWV">0.1819</td></tr><tr id="f87edc1d-5581-4f10-8f11-1b8e0e2098ee"><td class="cell-}yA&lt;">107</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/ITL_HO_4063_nearest%20f87edc1d55814f108f111b8e0e2098ee.html">ITL_HO_4063_nearest</a></td><td class="cell-ReWV">0.1777</td></tr><tr id="72b79a60-389b-4cf5-adb1-f9092af72c4b"><td class="cell-}yA&lt;">108</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/zxagan%2072b79a60389b4cf5adb1f9092af72c4b.html">zxagan</a></td><td class="cell-ReWV">0.1607</td></tr><tr id="9084f604-16c9-4875-a000-fa6a0ceec5c7"><td class="cell-}yA&lt;">109</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/zxagan_2%209084f60416c94875a000fa6a0ceec5c7.html">zxagan_2</a></td><td class="cell-ReWV">0.0968</td></tr><tr id="3a8e9f1b-dc74-47cd-87ef-cd3ba2dad8ee"><td class="cell-}yA&lt;">110</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/Zxagan%203a8e9f1bdc7447cd87efcd3ba2dad8ee.html">Zxagan</a></td><td class="cell-ReWV">0.0968</td></tr><tr id="968c0c02-e9bd-4a7b-94c4-46c1192ab03a"><td class="cell-}yA&lt;">111</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/hrnet+ocr%20968c0c02e9bd4a7b94c446c1192ab03a.html">hrnet+ocr</a></td><td class="cell-ReWV">0.0552</td></tr><tr id="065f8dd6-94e4-404e-aafe-d60d9bc7b3f6"><td class="cell-}yA&lt;">112</td><td class="cell-title"><a href="Lane%20Segmentation%20Leaderboard%20a0d47b0e0df24436beebf1f1281d0dd2/intra-kd%20065f8dd694e4404eaafed60d9bc7b3f6.html">intra-kd</a></td><td class="cell-ReWV">0.0397</td></tr></tbody></table></div></article></body></html>
