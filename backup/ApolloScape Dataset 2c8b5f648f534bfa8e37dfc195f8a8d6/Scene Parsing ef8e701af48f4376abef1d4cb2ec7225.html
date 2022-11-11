@@ -1,0 +1,679 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Scene Parsing</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ef8e701a-f48f-4376-abef-1d4cb2ec7225" class="page sans"><header><img class="page-cover-image" src="Scene%20Parsing%20ef8e701af48f4376abef1d4cb2ec7225/Screen_Shot_2022-09-13_at_11.28.19_AM.png" style="object-position:center 50%"/><h1 class="page-title">Scene Parsing</h1></header><div class="page-body"><p id="d2ec2c88-cf57-4d2b-8002-d985ff1951e6" class=""><a href="Scene%20Parsing%20ef8e701af48f4376abef1d4cb2ec7225.html">1 · Introduction</a> </p><p id="ae7f21c4-7a2f-43d9-ad15-b32cafd65084" class=""><a href="Scene%20Parsing%20ef8e701af48f4376abef1d4cb2ec7225.html">2 · Summary of Scene Parsing Dataset</a> </p><p id="8d28d0cf-55b4-4058-b4ec-e179564caceb" class=""><a href="Scene%20Parsing%20ef8e701af48f4376abef1d4cb2ec7225.html">3 · Class Definitions</a> </p><p id="2e31b20d-4e6f-4b07-ae4f-1c217a41efbb" class=""><a href="Scene%20Parsing%20ef8e701af48f4376abef1d4cb2ec7225.html">4 · Data Example</a> </p><p id="38f32a2b-1cd8-473a-83ea-b1a3f25fef81" class=""><a href="Scene%20Parsing%20ef8e701af48f4376abef1d4cb2ec7225.html">5 · Dataset Download</a> </p><p id="66bbfbe7-4a6a-43a3-aa9b-43bc235b2613" class=""><a href="Scene%20Parsing%20ef8e701af48f4376abef1d4cb2ec7225.html">6 · Dataset Structure</a> </p><p id="97592c10-f444-40a7-9233-f7d5f7324c24" class=""><a href="Scene%20Parsing%20ef8e701af48f4376abef1d4cb2ec7225.html">7 · Evaluation Tasks</a> </p><p id="439a2663-348c-4961-a0df-1b7d45822160" class="">
+</p><h2 id="c1edd6fd-6f73-4ba7-8524-ccb7c7ad3e58" class=""><strong>1 · Introduction</strong></h2><p id="f044c97f-92c3-4b1f-bd81-fcc4f2c20361" class="">Scene parsing aims to assign a class (semantic) label for each pixel in an image, or each point in a point cloud. It is one of the most comprehensive analyses of a 2D/3D scene. Given the rise of autonomous driving, environmental perception is expected to be a key enabling technical piece. The ApolloScape dataset provided by Baidu, Inc. will include RGB videos with high resolution images and per pixel annotation, survey- grade dense 3D points with semantic segmentation, stereoscopic video, and panoramic images.</p><p id="7ec18a57-d435-4b93-b146-84b4b86a0a21" class="">We equipped a mid-size SUV with high resolution cameras and a Riegl acquisition system. Our dataset is collected in different cities under various traffic conditions. The number of moving objects, such as vehicles and pedestrians, averages from tens to over one hundred. Moreover, each image is tagged with high-accuracy pose information at cm accuracy and the static background point cloud has mm relative accuracy. We expect our new dataset can deeply benefit various autonomous driving related applications that include but not limited to 2D/3D scene understanding, localization, transfer learning, and driving simulation.</p><figure id="fcde7db8-3651-4274-8fb4-ad377b9f7213"><div class="source"><a href="http://ad-apolloscape.bj.bcebos.com/video%2Fvideo_demo.webm">http://ad-apolloscape.bj.bcebos.com/video%2Fvideo_demo.webm</a></div></figure><p id="fbd6bfff-9be5-4da2-a461-1929569cbd64" class="">
+</p><h2 id="7ec55435-5709-40c9-8dc3-7acaad462613" class=""><strong>2 · Summary of Scene Parsing Dataset</strong></h2><p id="58d432a2-8894-444f-80ef-8bfc2b8a41df" class="">Image frames in our dataset are collected every one meter by our acquisition system with resolution 3384 x 2710. It is expected that the released dataset will include 200K image frames with corresponding pixel-level annotations and pose information. Instance-level annotations are available for a subset of the dataset. Depth maps for static background will also be provided.</p><p id="c796fbaf-0592-45bf-b58f-69161d65ac8d" class="">As of March 8, 2018, we have released the first part of the dataset that contains 74555 video frames and their pixel-level and instance-level annotations.On March 21, 2018, we added the second part of the data set, including 43592 depth images for static background of road01_ins and road02_ins.On April 03, 2018，the Scene Parsing data set cumulatively provides 146,997 frames with corresponding pixel-level annotations and pose information，depth maps for static background.</p><p id="5e77e4f5-d4d3-410a-9088-9aee28c7b3b3" class="">The dataset is divided into three subsets for training, validation and testing respectively. The semantic annotations for testing images are not provided. All the pixels in the ground truth annotations for testing images are labeled as 255. The files that contain image lists of training, validation, and testing subsets will be provided soon.</p><p id="54159d86-1234-4f3b-8520-71ec28dbab18" class="">
+</p><h2 id="cb03b16a-dc64-4ba1-bf4e-0cce48d6c278" class=""><strong>3 · Class Definitions</strong></h2><p id="d2e1c875-b895-4c73-b92f-d90caf24b1c9" class="">We annotate 25 different labels covered by five groups. The following table gives the details of these labels. There are two IDs, class ID and train ID, assigned to each pixel. The train ID is the one used for training and can be modified as needed. The value 255 indicates the ignoring labels that currently are not evaluated during the testing phase. The class ID is used to represent the label in ground truth labels. More details including color assignment can be found in label_apollo.py in <a href="http://ad-apolloscape.bj.bcebos.com/public%2Futilities.tar.gz">utilities.tar.gz</a>. During the submission, however, please make sure to use the class IDs.</p><table id="c503eb46-0e32-4f99-84ae-e3a0e822f0ff" class="simple-table"><tbody></tbody></table><h2 id="913ee094-1451-4790-b9e3-5adb8122f1e8" class=""><strong>4 · Data Example</strong></h2><p id="c0ca4872-1111-4def-ac78-17a7eae51060" class="">Color Label</p><figure id="de4f5941-d9ea-41e1-9e16-0e8e7fed6684" class="image"><a href="Scene%20Parsing%20ef8e701af48f4376abef1d4cb2ec7225/color_1_837f548.jpg"><img style="width:272px" src="Scene%20Parsing%20ef8e701af48f4376abef1d4cb2ec7225/color_1_837f548.jpg"/></a></figure><p id="bcd06750-ed01-4111-84a7-4336314252d8" class="">Depth Image</p><figure id="5611aa0c-a26c-4906-9038-b31bb0df0852" class="image"><a href="Scene%20Parsing%20ef8e701af48f4376abef1d4cb2ec7225/depth_1_359ed89.jpg"><img style="width:272px" src="Scene%20Parsing%20ef8e701af48f4376abef1d4cb2ec7225/depth_1_359ed89.jpg"/></a></figure><figure id="51ac931b-3bab-4eb9-a119-daf19b3a7b35" class="image"><a href="Scene%20Parsing%20ef8e701af48f4376abef1d4cb2ec7225/depth_2_213db2e.jpg"><img style="width:272px" src="Scene%20Parsing%20ef8e701af48f4376abef1d4cb2ec7225/depth_2_213db2e.jpg"/></a></figure><h2 id="b6acc1f8-dfb1-441f-b426-3718b000568f" class=""><strong>5 · Dataset Download</strong></h2><h3 id="a67367aa-9d77-4b40-9522-aab2b94f0e91" class="">Instance-level &amp; Pixel-level labels</h3><p id="41aa6798-90c4-4378-8f52-87112f3463fe" class="">_ins means labels contains both pixel-level and instance-level labels, _seg means labels contains pixel-level labels only.</p><div id="035b58ab-56a8-40ed-b20a-87dd1cacdbdb" class="column-list"><div id="d1bf0552-62a8-4437-b8e0-40c2755dbae4" style="width:50%" class="column"><p id="f111a0b2-01a8-43c5-aab9-a86e5cdf574b" class=""><a href="https://ad-apolloscape.cdn.bcebos.com/road02_ins.tar.gz">road02_ins</a> </p></div><div id="1f5d6183-6074-4f1e-a16d-168ff7cd455a" style="width:50%" class="column"><p id="9349b3a5-cbba-4ec1-97b3-f5954ec199f2" class=""><a href="https://ad-apolloscape.cdn.bcebos.com/road02_seg.tar.gz">road02_seg</a> </p></div></div><p id="b7eb1a5e-2e53-46e7-b6ce-05f812448e8d" class="">
+</p><h3 id="834fce5a-2b39-4fa8-bb8b-b6b4296cb116" class="">Pixel-level LaneLine labels</h3><p id="d12a5d19-70ac-4e17-9a93-a131c4aaa18d" class="">We annotate 28 different lane markings that currentlyare not available in existing open datasets. <a href="http://ad-apolloscape.bj.bcebos.com/public%2FApolloScape%20Dataset.pdf">The ApolloScape Dataset for Autonomous Driving</a> give detailed information of these lane markings</p><div id="5e8c102b-fa9c-451d-9d49-5f1615d33049" class="column-list"><div id="f472ce2e-3079-46c7-9266-0337317fcd71" style="width:50%" class="column"><p id="1697276a-14d6-4bb7-bb71-56ddec797a97" class=""><a href="https://ad-apolloscape.cdn.bcebos.com/road02_ins_lane.tar.gz">road02_ins_lane</a></p></div><div id="2fd495fc-a20b-4794-816c-d2b562fc2f52" style="width:50%" class="column"><p id="3897c0f0-d915-4b90-ada2-6c93e9e543c5" class=""><a href="https://ad-apolloscape.cdn.bcebos.com/road03_ins_lane.tar.gz">road03_ins_lane</a></p></div></div><p id="b2668296-b302-4d1c-a7b6-69679e7a50d5" class="">
+</p><h3 id="09e4466b-a0d8-4fc1-80ee-9f28bc7c2d9c" class="">Depth images</h3><p id="325b2090-950f-402e-9b9c-5d43bc73ea21" class="">Note: All photos can only be used for educational purpose by individuals or organizations. Commercial use or other violations of copyright law are not permitted.</p><div id="cec12e9c-2815-4f3b-a3ad-9d698a54a3f4" class="column-list"><div id="04220d21-922f-4700-8df3-cd79160a7509" style="width:50%" class="column"><p id="ffcf0679-9896-43b8-9445-6923eeeba32c" class=""><a href="https://ad-apolloscape.cdn.bcebos.com/road02_ins_depth.tar.gz">road02_ins_depth</a></p></div><div id="a231935c-4e73-45bf-8b68-981e94075c35" style="width:50%" class="column"><p id="e72511c7-6cd0-4443-897d-940af2eeeede" class=""><a href="https://ad-apolloscape.cdn.bcebos.com/road02_seg_depth.tar.gz">road02_seg_depth</a></p></div></div><p id="385b306a-aac9-4e77-b002-c0356a94cab4" class="">
+</p><h3 id="ed9009e2-8353-4eda-a1c7-1138f403fa6a" class="">Image lists</h3><p id="76da759f-2315-4773-b7cf-826fcefbdec1" class="">Uploaded the <a href="http://ad-apolloscape.bj.bcebos.com/public%2Fimage_lists.tar.gz">Image lists</a> for training, validation, and testing for road01_ins, road02_ins, and road03_ins.</p><p id="94c881ba-2f75-46b8-beb0-9565e4512b2d" class="">
+</p><p id="a080db0d-1547-4ddc-a29c-77b0bb5127e6" class=""><strong>Full data: </strong></p><p id="99bfa41b-0a2d-4792-a22e-2087d827a7e1" class="">Please email apolloscape at baidu.com or <a href="mailto:apolloscape@baidu.com">here</a> for downloading</p><h2 id="909c1dda-b229-406e-8435-3d451dfa43fc" class=""><strong>6 · Dataset Structure</strong></h2><p id="f2c4397d-028b-4b16-977c-04eee774536d" class="">Folder structure of the dataset</p><p id="79751907-8b67-434a-9e82-c7a09b364fa7" class="">{root} / {type} / {road id} _ {level} / {record id} / {camera id} / {timestamp} _ {camera id} {ext}</p><p id="906459f7-c32f-4a6f-9195-b606137ad2a2" class="">root: the root folder defined by users.</p><p id="a1ba934b-8364-44fc-a293-e7254c3180d5" class="">type: there are three data types in current release, i.e., ColorImage, Label, and Pose.</p><p id="cbebdeaf-c875-4d65-ad9d-49bf1ec1b294" class="">road id: the road id, e.g., road001, road002.</p><p id="95cadd01-8457-4619-82fc-c41932cc63ad" class="">level: two different levels, seg means labels contains pixel-level labels only, ins means labels contains both pixel-level and instance-level labels.</p><p id="f3890840-1941-4802-aeaa-75e7a9f5cc7f" class="">record id: the record is, e.g., Record001, Record002. Each record contains up to few thousands images.</p><p id="ce42ac95-7193-4e40-ac49-1c7bc4dcb0c5" class="">camera id: two front cameras are used in our acquisition system, i.e., Camera 5 and Camera 6.</p><p id="ad4550d4-af51-4204-9cfb-56f7b1c83778" class="">timestamp: the first part of the image name.</p><p id="795830ab-fc1c-4bf3-ae28-ee4f112ba427" class="">camera id: the second part of the image name.</p><p id="dc4c2ac5-ec5a-46a9-b059-9c1cacd0d457" class="">ext: the extension of the file. .jpg for color image, _bin.png for label image, .json for the polygon list of instance-level labels, and _instanceIds.png for instance-level labels.</p><p id="0e520481-40ba-4f91-8b69-45b60227edd5" class="">There is only one pose file (i.e., pose.txt) for each camera and each record. This pose file contains all the extrinsic parameters for all the images of the corresponding camera and record. The format of each line in the pose file is as follows:</p><p id="45b4b44c-aa1f-432c-aed3-cc0454aa8db4" class="">r00 r01 r02 t0 r10 r11 r12 t1 r20 r21 r22 t2 0 0 0 1 image_name</p><p id="59ce3c02-d8db-4bce-b650-8e1d5ab5a65a" class="">The cameras have been well calibrated and undistorted. The intrinsic parameters of cameras can found in camera_intrinsics.txt in the <a href="http://ad-apolloscape.bj.bcebos.com/public%2Futilities.tar.gz">utilities.tar.gz</a>.</p><p id="0d277baa-4483-4879-bf89-80df0f410ff1" class="">Depth image format:</p><p id="2afd8378-61ba-4289-8a51-eab82ae7c902" class="">In the depth image, the depth value is save as unsigned short int format. It can be easily read in OpenCV as:</p><p id="e1f6fe91-c6df-4217-93f1-54a5a22a9c35" class="">cv::Mat depth_u16 = cv::imread ( depth_path, CV_LOAD_IMAGE_ANYDEPTH);</p><p id="ab30bf64-6f73-4bd4-9f7e-2bd3782bc944" class="">The absolute depth value in meter can be obtained as</p><p id="05d55f9e-a6bd-4ab4-970b-1bf14c8773f7" class="">double depth_value = depth_u16.at(row, col) / 200.00;</p><p id="722c7bcf-6f77-4dda-9d3d-2011ebd635de" class="">
+</p><h2 id="3aaf3aa1-b990-4e40-8f02-fee610b9ab79" class=""><strong>7 · Evaluation Tasks</strong></h2><p id="be8c6371-d430-4fbd-9cd3-a97e12147a35" class="">Given 3D annotations, 2D pixel and instance-level annotations, background depth maps, camera pose information, a number of tasks could be defined. In current release, we mainly focus on the 2D image parsing task. We would like to add more tasks in near future.</p><p id="9f0eb285-8b29-45f2-ace2-ef6fcbfc15d1" class="">We have provided three evaluation metrics for single image parsing and video parsing. More details about the evaluation metrics can be found in our paper. We are organizing <a href="https://arxiv.org/abs/1803.06184">2018 CVPR Workshop on Autonomous Driving Challenge</a>.</p><p id="44f74e43-e3bb-4f19-a481-42e0aef5dfc5" class="">
+</p><h2 id="3a02a5e6-0a79-48f3-a39d-1d2dc44a16ef" class="">8<strong> · Publication</strong></h2><p id="780274c2-31d7-4637-96eb-501de2eea4a3" class="">Please cite our paper in your publications if our dataset is used in your research.
+Xinyu Huang, Xinjing Cheng, Qichuan Geng, Binbin Cao, Dingfu Zhou, Peng Wang, Yuanqing Lin, and Ruigang Yang, <a href="https://arxiv.org/abs/1803.06184">The ApolloScape Dataset for Autonomous Driving</a>, arXiv: 1803.06184, 2018</p><p id="2e14a860-fb20-4b62-ada7-2978f7f355b8" class=""><a href="http://ad-apolloscape.bj.bcebos.com/public%2FApolloScape%20Dataset.pdf">[PDF]</a> <a href="http://ad-apolloscape.bj.bcebos.com/public%2FBibTex.txt">[BibTex]</a></p></div></article></body></html>
