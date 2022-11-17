@@ -282,33 +282,33 @@ function get_arr() {
                 'attr': 'class="mt20 word-1"',
                 'word': '_ins表示数据包含像素级别和实例级别标签，_seg表示数据仅包含像素级别标签。'
             },
-            {
-                'type': 'div',
-                'attr': 'class="down_list mt20 clearfix" id="to_submit_href"',
-                'word': [
-                    '<a class="down_btn fl mr10" value="road01_ins">road01_ins.tar.gz</a>',
-                    '<a class="down_btn fl mr10" value="road02_ins">road02_ins.tar.gz</a>',
-                    '<a class="down_btn fl" value="road03_ins">road03_ins.tar.gz</a>',
-                    '<a class="down_btn fl mr10" value="road04_ins">road04_ins.tar.gz</a>',
-                    '<a class="down_btn fl mr10" value="road02_seg">road02_seg.tar.gz</a>',
-                    '<a class="down_btn fl" value="road03_seg">road03_seg.tar.gz</a>',
-                    '<a class="down_btn fl mr10" value="road04_seg">road04_seg.tar.gz</a>',
-
-                ],
-            },
             // {
             //     'type': 'div',
             //     'attr': 'class="down_list mt20 clearfix" id="to_submit_href"',
             //     'word': [
-            //         '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road01_ins.tar.gz">road01_ins.tar.gz</a>',
-            //         '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road02_ins.tar.gz">road02_ins.tar.gz</a>',
-            //         '<a class="down_btn fl" href="https://ad-apolloscape.cdn.bcebos.com/road03_ins.tar.gz">road03_ins.tar.gz</a>',
-            //         '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road04_ins.tar.gz">road04_ins.tar.gz</a>',
-            //         '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road02_seg.tar.gz">road02_seg.tar.gz</a>',
-            //         '<a class="down_btn fl" href="https://ad-apolloscape.cdn.bcebos.com/road03_seg.tar.gz">road03_seg.tar.gz</a>',
-            //         '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road04_seg.tar.gz">road04_seg.tar.gz</a>',
+            //         '<a class="down_btn fl mr10" value="road01_ins">road01_ins.tar.gz</a>',
+            //         '<a class="down_btn fl mr10" value="road02_ins">road02_ins.tar.gz</a>',
+            //         '<a class="down_btn fl" value="road03_ins">road03_ins.tar.gz</a>',
+            //         '<a class="down_btn fl mr10" value="road04_ins">road04_ins.tar.gz</a>',
+            //         '<a class="down_btn fl mr10" value="road02_seg">road02_seg.tar.gz</a>',
+            //         '<a class="down_btn fl" value="road03_seg">road03_seg.tar.gz</a>',
+            //         '<a class="down_btn fl mr10" value="road04_seg">road04_seg.tar.gz</a>',
+
             //     ],
             // },
+            {
+                'type': 'div',
+                'attr': 'class="down_list mt20 clearfix" id="to_submit_href"',
+                'word': [
+                    '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road01_ins.tar.gz">road01_ins.tar.gz</a>',
+                    '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road02_ins.tar.gz">road02_ins.tar.gz</a>',
+                    '<a class="down_btn fl" href="https://ad-apolloscape.cdn.bcebos.com/road03_ins.tar.gz">road03_ins.tar.gz</a>',
+                    '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road04_ins.tar.gz">road04_ins.tar.gz</a>',
+                    '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road02_seg.tar.gz">road02_seg.tar.gz</a>',
+                    '<a class="down_btn fl" href="https://ad-apolloscape.cdn.bcebos.com/road03_seg.tar.gz">road03_seg.tar.gz</a>',
+                    '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road04_seg.tar.gz">road04_seg.tar.gz</a>',
+                ],
+            },
             {
                 'type': 'p',
                 'attr': 'class="title-2 mt40"',
@@ -319,53 +319,53 @@ function get_arr() {
                 'attr': 'class="mt20 word-1"',
                 'word': '在现有的开放数据集中标注了28种不同的车道线标记，详细标注信息参考我们的论文：<a href="http://ad-apolloscape.bj.bcebos.com/public%2FApolloScape%20Dataset.pdf">The ApolloScape Dataset for Autonomous Driving</a>'
             },
-            {
-                'type': 'div',
-                'attr': 'class="down_list mt20 clearfix" id="to_submit_href"',
-                'word': [
-                    '<a class="down_btn fl mr10" value="road02_ins_lane">road02_ins_lane.tar.gz</a>',
-                    '<a class="down_btn fl mr10" value="road03_ins_lane">road03_ins_lane.tar.gz</a>',
-                ],
-            },
             // {
             //     'type': 'div',
             //     'attr': 'class="down_list mt20 clearfix" id="to_submit_href"',
             //     'word': [
-            //         '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road02_ins_lane.tar.gz">road02_ins_lane.tar.gz</a>',
-            //         '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road03_ins_lane.tar.gz">road03_ins_lane.tar.gz</a>',
+            //         '<a class="down_btn fl mr10" value="road02_ins_lane">road02_ins_lane.tar.gz</a>',
+            //         '<a class="down_btn fl mr10" value="road03_ins_lane">road03_ins_lane.tar.gz</a>',
             //     ],
             // },
+            {
+                'type': 'div',
+                'attr': 'class="down_list mt20 clearfix" id="to_submit_href"',
+                'word': [
+                    '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road02_ins_lane.tar.gz">road02_ins_lane.tar.gz</a>',
+                    '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road03_ins_lane.tar.gz">road03_ins_lane.tar.gz</a>',
+                ],
+            },
             {
                 'type': 'p',
                 'attr': 'class="title-2 mt40"',
                 'word': '深度图像数据'
             },
-            {
-                'type': 'div',
-                'attr': 'class="down_list mt20 clearfix" id="to_submit_href"',
-                'word': [
-                    '<a class="down_btn fl mr10" value="road01_ins_depth">road01_ins_depth.tar.gz</a>',
-                    '<a class="down_btn fl mr10" value="road02_ins_depth">road02_ins_depth.tar.gz</a>',
-                    '<a class="down_btn fl " value="road03_ins_depth">road03_ins_depth.tar.gz</a>',
-                    '<a class="down_btn fl mr10" value="road04_ins_depth">road04_ins_depth.tar.gz</a>',
-                    '<a class="down_btn fl mr10" value="road02_seg_depth">road02_seg_depth.tar.gz</a>',
-                    '<a class="down_btn fl " value="road03_seg_depth">road03_seg_depth.tar.gz</a>',
-                    '<a class="down_btn fl mr10" value="road04_seg_depth">road04_seg_depth.tar.gz</a>',
-                ],
-            },
             // {
             //     'type': 'div',
             //     'attr': 'class="down_list mt20 clearfix" id="to_submit_href"',
             //     'word': [
-            //         '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road01_ins_depth.tar.gz">road01_ins_depth.tar.gz</a>',
-            //         '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road02_ins_depth.tar.gz">road02_ins_depth.tar.gz</a>',
-            //         '<a class="down_btn fl " href="https://ad-apolloscape.cdn.bcebos.com/road03_ins_depth.tar.gz">road03_ins_depth.tar.gz</a>',
-            //         '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road04_ins_depth.tar.gz">road04_ins_depth.tar.gz</a>',
-            //         '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road02_seg_depth.tar.gz">road02_seg_depth.tar.gz</a>',
-            //         '<a class="down_btn fl " href="https://ad-apolloscape.cdn.bcebos.com/road03_seg_depth.tar.gz">road03_seg_depth.tar.gz</a>',
-            //         '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road04_seg_depth.tar.gz">road04_seg_depth.tar.gz</a>',
+            //         '<a class="down_btn fl mr10" value="road01_ins_depth">road01_ins_depth.tar.gz</a>',
+            //         '<a class="down_btn fl mr10" value="road02_ins_depth">road02_ins_depth.tar.gz</a>',
+            //         '<a class="down_btn fl " value="road03_ins_depth">road03_ins_depth.tar.gz</a>',
+            //         '<a class="down_btn fl mr10" value="road04_ins_depth">road04_ins_depth.tar.gz</a>',
+            //         '<a class="down_btn fl mr10" value="road02_seg_depth">road02_seg_depth.tar.gz</a>',
+            //         '<a class="down_btn fl " value="road03_seg_depth">road03_seg_depth.tar.gz</a>',
+            //         '<a class="down_btn fl mr10" value="road04_seg_depth">road04_seg_depth.tar.gz</a>',
             //     ],
             // },
+            {
+                'type': 'div',
+                'attr': 'class="down_list mt20 clearfix" id="to_submit_href"',
+                'word': [
+                    '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road01_ins_depth.tar.gz">road01_ins_depth.tar.gz</a>',
+                    '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road02_ins_depth.tar.gz">road02_ins_depth.tar.gz</a>',
+                    '<a class="down_btn fl " href="https://ad-apolloscape.cdn.bcebos.com/road03_ins_depth.tar.gz">road03_ins_depth.tar.gz</a>',
+                    '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road04_ins_depth.tar.gz">road04_ins_depth.tar.gz</a>',
+                    '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road02_seg_depth.tar.gz">road02_seg_depth.tar.gz</a>',
+                    '<a class="down_btn fl " href="https://ad-apolloscape.cdn.bcebos.com/road03_seg_depth.tar.gz">road03_seg_depth.tar.gz</a>',
+                    '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road04_seg_depth.tar.gz">road04_seg_depth.tar.gz</a>',
+                ],
+            },
             {
                 'type': 'div',
                 'attr': 'class="cb"',
