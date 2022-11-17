@@ -46,10 +46,10 @@ function showFooter() {
                 'name': 'Apollo',
                 'url': 'http://apollo.auto/'
             },
-            {
-                'name': 'Wad.Ai',
-                'url': 'http://wad.ai/'
-            },
+            // {
+            //     'name': 'Wad.Ai',
+            //     'url': 'http://wad.ai/'
+            // },
             {
                 'name': 'Github toolkit',
                 'url': 'https://github.com/ApolloScapeAuto/dataset-api'
@@ -59,7 +59,7 @@ function showFooter() {
         'contact_title': 'Please submit issue at',
         'email': 'https://github.com/ApolloScapeAuto/dataset-api',
         'tiptop': 'back top',
-        'copyright': '@ApolloScape 2021'
+        'copyright': '@ApolloScape 2023'
     };
     
     var html = '';
