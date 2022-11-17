@@ -3,10 +3,8 @@
 <!--[if lt IE 9]><html class="ie"><![endif]-->
 <html lang="en">
 <head>
-    <link rel="import" href="/common/meta.html?__inline">
-    <link rel="import" href="/common/css.html?__inline">
-    <link rel="import" href="/common/js.html?__inline">
-
+    <link rel="import" href="common/meta.html?__inline">
+    <link rel="import" href="common/css.html?__inline">
     <link rel="stylesheet" type="text/css" href="common/bootstrap/bootstrap.css">
 
     <link rel="stylesheet" type="text/css" media="screen and (min-width: 750px)" href="css/submit/index.css">
@@ -18,51 +16,44 @@
 
     <section class="main-wrapper">
         <div class="main">
-            <div class="left-content-wrapper" style="margin-top:20px;">
+            <div class="left-content-wrapper">
 
                 <div class="left-content-item">
-                    <!-- <label for="submit-name">Submission Name<sup class="must-start" >*</sup></label>
+                    <label for="submit-name">Submission Name<sup class="must-start" >*</sup></label>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" id="submit-name" >
-                    </div> -->
-                    <label>Task<sup class="must-start" >*</sup></label>
+                    </div>
+                    <label for="submit-team">Team Name<sup class="must-start" >*</sup></label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="submit-team">
+                    </div>
+                    <label>Method</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="method-name-des">Name <sup class="must-start" >*</sup></span>
+                        </div>
+                        <input type="text" class="form-control" id="method-name" aria-describedby="method-name-des">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="method-details-des">description/details<sup class="must-start" >*</sup></span>
+                        </div>
+                        <input type="text" class="form-control" id="method-details" aria-describedby="method-details-des">
+                    </div>
+
+                    <label>Task</label>
                     <div class="input-group mb-3">
                         <select class="custom-select" id="taskSelect">
                             <option selected>Choose...</option>
-                            <option value="scene">scene</option>
                             <option value="lane-segmentation">lane-segmentation</option>
                             <option value="car-instance">car-instance</option>
                             <option value="self-localization">self-localization</option>
                             <option value="trajectory">trajectory</option>
-                            <option value="detection">detection</option>
                             <option value="tracking">tracking</option>
-                            <option value="stereo">stereo</option>
+                            <option value="detection">detection</option>
                         </select>
                     </div>
-                    <label>Method Name <sup class="must-start" >*</sup><span style="font-size:12px">（Noticing that for same method name, only the highest rank will appear. Please submit meaningful method name. Method Name and Team name are 4 words minimum and 25 words maximum.）</span></label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="method-name">
-                    </div>
-                    <label for="submit-team">Team<span style="font-size:12px">(Please file company/organization/a list of authors name here)</span><sup class="must-start" ></sup></label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="submit-team">
-                    </div>
-                    <label>Method Description<sup class="must-start" ></sup></label>
-                    <div class="input-group mb-3">
-                        <textarea rows="3" class="form-control" id="method-details">
-                    </div>
-                    <label>Publication <sup class="must-start" ></sup></label>
-                    <div class="input-group mb-3">
-                        <textarea rows="3" class="form-control" id="publication">
-                    </div>
-                    <label>Code Link <sup class="must-start" ></sup></label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="code-link">
-                    </div>
-                    <label>Run Time<sup class="must-start" ></sup></label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="run-time">
-                    </div>
+
                     <div class="form-group">
                         <label for="fileInput">Submission file upload(zip)</label>
                         <div>
@@ -84,31 +75,33 @@
 
                     </div>
 
-                    <div id="error-content">
-                    </div>
 
                 </div>
 
                 <div class="left-content-item">
+
+
+
                 </div>
 
                 <div class="left-content-itemm submit-achievement">
                     <button type="button" class="btn btn-primary submit-btn">Submit</button>
                 </div>
-                <!-- <div>
-                    Noticing that for same method name, only the highest rank will appear. Please submit meaningful method name. Method Name and Team name are 4 words minimum and 25 words maximum. Thanks!
-                </div> -->
+
                 <div class="alert alert-danger submit-alert" role="alert">
                     A simple danger alert—check it out!
                 </div>
             </div>
+            <link rel="import" href="./common/right-menu.html?__inline">
         </div>
     </section>
 
     <link rel="import" href="common/footer.html?__inline">
 </body>
 
-<script type="text/javascript" src="/js/lib/bce-bos-uploader.bundle.min.js"></script>
+<script type="text/javascript" src="js/lib/jquery-3.2.1.min.js"></script>
+
+<script type="text/javascript" src="js/lib/bce-bos-uploader.bundle.min.js"></script>
 <script type="text/javascript">
     /* eslint-disable */
     var uploader;
@@ -181,15 +174,11 @@
 
     $('.submit-btn').click(function () {
 
-        var sName   = $('#submit-name').val() || 'default';
-        var tName   = $('#submit-team').val() || 'Anonymous Submission';
+        var sName   = $('#submit-name').val();
+        var tName   = $('#submit-team').val();
         var mName   = $('#method-name').val();
-        var mDetail = $('#method-details').val() || 'TBA';
+        var mDetail = $('#method-details').val();
         var task    = $('#taskSelect').val();
-        var pub    = $('#publication').val() || 'TBA';
-        var link    = $('#code-link').val() || 'N/A';
-        var time    = $('#run-time').val() || 'N/A';
-
         var fName   = $(this).attr("data-uploadFile");
         var bucket  = $(this).attr("data-bucket");
 
@@ -209,30 +198,18 @@
             $('#submit-name').focus();
         }
 
-        // if($('#submit-name').val().length>25){
-        //     $('#error-content').text('Submission Name is 25 words maximum');
-        //     return false;
-        // }
-        if(tName.length>25 || tName.length<4){
-            $('#error-content').text('Team name are 4 words minimum and 25 words maximum.')
-            return false;
-        }
-        if(mName.length>25 || mName.length<4){
-            $('#error-content').text('Method Name are 4 words minimum and 25 words maximum.')
-            return false;
-        }
 
-        $('#error-content').empty()
 
         if (task !== 'Choose...' && mDetail && mName && tName && sName) {
             _hmt.push(['_trackEvent', 'submit', tName, task]);
-            $.post("/server/eccv/submit",{submissionName: sName, teamName: tName, methodName: mName, methodDesc: mDetail, fileID:fName, task: task, bucket: bucket, publication: pub, code_link: link, run_time: time },function(result){
+            $.post("/server/eccv/submit",{submissionName: sName, teamName: tName, methodName: mName, methodDesc: mDetail, fileID:fName, task: task, bucket: bucket },function(result){
                 if (result.status === 0) {
-                    window.location.href="/achievement.html";
+                    window.location.href="/ECCV/achievement.html";
                 } else {
                     $('.submit-alert').text(result.message);
                     $('.submit-alert').css("visibility", "visible");
                 }
+
 
             });
         }
