@@ -118,7 +118,7 @@ $(function () {
         });
     }
     function getLane() {
-        $.getJSON('/server/eccv/leaderboard/?taskId=lane-segmentation', function (result) {
+        $.getJSON('/js/leader_board/lane-segmentation.json', function (result) {
             $('.lane-body').html('');
             var laneSegmentation = result.data['lane-segmentation'];
             $.each(laneSegmentation, function (l, lanAchievement) {
@@ -278,7 +278,7 @@ $(function () {
         });
     }
     function getSelf() {
-        $.getJSON('/server/eccv/leaderboard/?taskId=self-localization', function (result) {
+        $.getJSON('/js/leader_board/self-localization.json', function (result) {
             console.log(result)
             var selfLocalization = result.data['self-localization'];
             $('.self-body').html('');
@@ -350,7 +350,7 @@ $(function () {
     // 4.19新增接口
 
     function getTrajectory() {
-        $.getJSON('/server/eccv/leaderboard/?taskId=trajectory', function (result) {
+        $.getJSON('/js/leader_board/trajectory.json', function (result) {
             var trajectoryInstance = result.data['trajectory'];
             $('.trajectory-body').html('');
             $.each(trajectoryInstance, function (c, trajectoryData) {
@@ -437,7 +437,7 @@ $(function () {
     }
 
     function getDetection() {
-        $.getJSON('/server/eccv/leaderboard/?taskId=detection', function (result) {
+        $.getJSON('/js/leader_board/detection.json', function (result) {
             var detection = result.data['detection'];
             $('.detection-body').html('');
             $.each(detection, function (c, detectionData) {
@@ -511,7 +511,7 @@ $(function () {
     }
 
     function getTracking() {
-        $.getJSON('/server/eccv/leaderboard/?taskId=tracking', function (result) {
+        $.getJSON('/js/leader_board/tracking.json', function (result) {
             var tracking = result.data['tracking'];
             $('.tracking-body').html('');
             $.each(tracking, function (c, trackingData) {
@@ -586,7 +586,7 @@ $(function () {
     }
 
     function getStereo() {
-        $.getJSON('/server/eccv/leaderboard/?taskId=stereo', function (result) {
+        $.getJSON('/js/leader_board/stereo.json', function (result) {
             var stereo = result.data['stereo'];
             $('.stereo-body').html('');
             $.each(stereo, function (c, stereoData) {
