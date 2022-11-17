@@ -179,7 +179,8 @@ $(function () {
         });
     }
     function getCar() {
-        $.getJSON('/server/eccv/leaderboard/?taskId=car-instance', function (result) {
+        $.getJSON('/js/leader_board/car-instance.json', function (result) {
+        // $.getJSON('/server/eccv/leaderboard/?taskId=car-instance', function (result) {
             $('.car-body').html('');
             var carInstance = result.data['car-instance'];
             $.each(carInstance, function (c, carAchievement) {
