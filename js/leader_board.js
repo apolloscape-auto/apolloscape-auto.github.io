@@ -53,7 +53,7 @@ $(function () {
     $('.head-text-small')[0].click();
 
     function getScene() {
-        $.getJSON('/server/eccv/leaderboard/?taskId=scene', function (result) {
+        $.getJSON('/js/leader_board/scene.json', function (result) {
             var scene = result.data['scene'];
             $('.scene-body').html('')
             $.each(scene, function (c, sceneData) {
