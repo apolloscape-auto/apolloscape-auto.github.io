@@ -220,9 +220,9 @@ function get_arr() {
         //     ],
         //   },
         {
-            'type': 'div',
-            'attr': 'class="down_list mt20 clearfix" id="to_submit_href"',
-            'word': [
+            type: 'div',
+            attr: 'class="down_list mt20 clearfix" id="to_submit_href"',
+            word: [
                 '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road01_ins.tar.gz">road01_ins.tar.gz</a>',
                 '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road02_ins.tar.gz">road02_ins.tar.gz</a>',
                 '<a class="down_btn fl" href="https://ad-apolloscape.cdn.bcebos.com/road03_ins.tar.gz">road03_ins.tar.gz</a>',
@@ -251,9 +251,9 @@ function get_arr() {
         //     ],
         // },
         {
-            'type': 'div',
-            'attr': 'class="down_list mt20 clearfix" id="to_submit_href"',
-            'word': [
+            type: 'div',
+            attr: 'class="down_list mt20 clearfix" id="to_submit_href"',
+            word: [
                 '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road02_ins_lane.tar.gz">road02_ins_lane.tar.gz</a>',
                 '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road03_ins_lane.tar.gz">road03_ins_lane.tar.gz</a>',
             ],
@@ -273,9 +273,9 @@ function get_arr() {
         //     ],
         // },
         {
-            'type': 'div',
-            'attr': 'class="down_list mt20 clearfix" id="to_submit_href"',
-            'word': [
+            type: 'div',
+            attr: 'class="down_list mt20 clearfix" id="to_submit_href"',
+            word: [
                 '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road01_ins_depth.tar.gz">road01_ins_depth.tar.gz</a>',
                 '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road02_ins_depth.tar.gz">road02_ins_depth.tar.gz</a>',
                 '<a class="down_btn fl " href="https://ad-apolloscape.cdn.bcebos.com/road03_ins_depth.tar.gz">road03_ins_depth.tar.gz</a>',
