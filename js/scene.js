@@ -1086,13 +1086,21 @@ function get_arr() {
                 'attr': 'class="mt20 word-1"',
                 'word': 'We annotate 28 different lane markings that currentlyare not available in existing open datasets. <a href="http://ad-apolloscape.bj.bcebos.com/public%2FApolloScape%20Dataset.pdf">The ApolloScape Dataset for Autonomous Driving</a> give detailed information of these lane markings'
             },
+            // {
+            //     'type': 'div',
+            //     'attr': 'class="down_list mt20 clearfix" id="to_submit_href"',
+            //     'word': [
+            //         '<a class="down_btn fl mr10" value="road02_ins_lane">road02_ins_lane.tar.gz</a>',
+            //         '<a class="down_btn fl mr10" value="road03_ins_lane">road03_ins_lane.tar.gz</a>'
+
+            //     ],
+            // },
             {
                 'type': 'div',
                 'attr': 'class="down_list mt20 clearfix" id="to_submit_href"',
                 'word': [
-                    '<a class="down_btn fl mr10" value="road02_ins_lane">road02_ins_lane.tar.gz</a>',
-                    '<a class="down_btn fl mr10" value="road03_ins_lane">road03_ins_lane.tar.gz</a>'
-
+                    '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road02_ins_lane.tar.gz">road02_ins_lane.tar.gz</a>',
+                    '<a class="down_btn fl mr10" href="https://ad-apolloscape.cdn.bcebos.com/road03_ins_lane.tar.gz">road03_ins_lane.tar.gz</a>',
                 ],
             },
             {
