@@ -14,11 +14,14 @@ function showFooter() {
           name: "Github toolkit",
           url: "https://github.com/ApolloScapeAuto/dataset-api",
         },
+        // {
+        //     name: "Request download full dataset",
+        //     url: "mailto:apollo-scape@baidu.com",
+        // },
         {
-            name: "Request download full dataset",
-            url: "mailto:apollo-scape@baidu.com",
-          },
-        
+          name: "Email (Request download full dataset)",
+          url: "mailto:apolloscape.auto@gmail.com",
+        }
       ],
       link_title: "Links：",
       contact_title: "Please submit issue at",
