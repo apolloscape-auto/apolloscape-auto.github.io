@@ -289,7 +289,7 @@ function get_arr() {
         {
             type: "p",
             attr: 'class="mt20 word-1"',
-            word: "For full data: Please email apolloscape at baidu.com for downloading",
+            word: "For full data: Please email to reqest for downloading link",
         },
         { type: "div", attr: 'class="cb"', word: "" },
         {
