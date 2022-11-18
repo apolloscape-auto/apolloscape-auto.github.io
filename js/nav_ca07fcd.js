@@ -12,23 +12,23 @@ function showNav() {
       '<li class="nav-item plr20 nav-home fl sub-nav-flag" data-subnav="leaderBoard"><a href="/leader_board.html" class="head-link">LeaderBoard</a></li>',
     n =
       '<li class="nav-item plr20 nav-home fl sub-nav-flag nav_challenge" data-subnav="activity"><a href="#" class="head-link">Events</a></li>',
-    // e =      '<li class="nav-item plr20 nav-home fl sub-nav-flag nav_challenge" data-subnav="submit"><a href="/submit.html" class="head-link">Submit</a></li>',
+    e =      '<li class="nav-item plr20 nav-home fl sub-nav-flag nav_challenge" data-subnav="submit"><a href="/submit.html" class="head-link">Submit</a></li>',
     i = [
       '<li class="nav-item plr20 nav-home fl sub-nav-flag"><a href="/index.html" class="head-link">Home</a></li>',
       a,
       l,
       n,
-    //   e,
+      e,
     ],
-    // s = {
-    //   login: "Login",
-    //   lang: "中文",
-    //   logout: "Logout",
-    //   use_pc:
-    //     "Please use PC to access this page to download data and view more",
-    //   perfect_info: "完善信息",
-    //   assessment_manage: "评估管理",
-    // },
+    s = {
+      login: "Login",
+      lang: "中文",
+      logout: "Logout",
+      use_pc:
+        "Please use PC to access this page to download data and view more",
+      perfect_info: "完善信息",
+      assessment_manage: "评估管理",
+    },
     t = {
       scene: [
         '<li class="fl"><a href="scene.html">Scene Parsing</a></li>',
