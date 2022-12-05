@@ -2,4 +2,3 @@
 
 ./index.html
 
-./trajectory.html
